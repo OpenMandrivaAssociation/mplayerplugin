@@ -1,32 +1,32 @@
 %define _mozillapluginpath	%{_libdir}/mozilla/plugins
 %define _mozillacomponentpath	%{_libdir}/mozilla/plugins
 
-Summary: A browser plugin to allow playing embedded movies on web pages
-Name:    mplayerplugin
-Version: 3.35
-Release: %mkrel 1
-License: GPL
-Group:   Networking/WWW
-URL: http://mplayerplug-in.sourceforge.net
-Source0: http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
-Patch0: mplayerplugin-3.01-mime.patch
-BuildRequires: XFree86-devel
+Summary:	A browser plugin to allow playing embedded movies on web pages
+Name:		mplayerplugin
+Version:	3.40
+Release:	%mkrel 1
+License:	GPL
+Group:		Networking/WWW
+URL:		http://mplayerplug-in.sourceforge.net
+Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
+Patch0:		mplayerplugin-3.01-mime.patch
+BuildRequires:	XFree86-devel
 %if %{mdkversion} > 1020
-BuildRequires: mozilla-firefox-devel
+BuildRequires:	mozilla-firefox-devel
 %else
-BuildRequires: mozilla-devel
+BuildRequires:	mozilla-devel
 %endif
-BuildRequires: gtk+2-devel
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
-Requires: mplayer >= 0.92
-Conflicts: mozplugger < 1.5.2-2mdk
+BuildRequires:	gtk+2-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+Requires:	mplayer >= 1.0
+Conflicts:	mozplugger < 1.5.2-2mdk
 
 %description
 Mplayerplug-in is a Netscape/Mozilla browser plugin to allow
 playing embedded movies on web pages.
 
 %prep
-%setup -n mplayerplug-in
+%setup -qn mplayerplug-in
 %patch0 -p1 -b .mime
 
 %build
@@ -42,17 +42,16 @@ autoconf-2.5x
 	--enable-gmp \
 	--enable-rm \
 	--enable-dvx \
-	--enable-rpath
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir} \
-	$RPM_BUILD_ROOT%{_sysconfdir} \
-	$RPM_BUILD_ROOT%{_mozillapluginpath} \
-	$RPM_BUILD_ROOT%{_mozillacomponentpath}
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_bindir} \
+	%{buildroot}%{_sysconfdir} \
+	%{buildroot}%{_mozillapluginpath} \
+	%{buildroot}%{_mozillacomponentpath}
 
-cat > $RPM_BUILD_ROOT%{_sysconfdir}/mplayerplug-in.conf <<EOF
+cat > %{buildroot}%{_sysconfdir}/mplayerplug-in.conf <<EOF
 # Enable debugging if set to 1 (default=0)
 debug=1
 
@@ -186,32 +185,32 @@ showtime=0
 #hidestatus=1
 EOF
 
-install -m 755 mplayerplug-in.so $RPM_BUILD_ROOT%{_mozillapluginpath}
-install -m 644 mplayerplug-in.xpt $RPM_BUILD_ROOT%{_mozillacomponentpath}
+install -m 755 mplayerplug-in.so %{buildroot}%{_mozillapluginpath}
+install -m 644 mplayerplug-in.xpt %{buildroot}%{_mozillacomponentpath}
 
-install -m 755 mplayerplug-in-wmp.so $RPM_BUILD_ROOT%{_mozillapluginpath}
-install -m 644 mplayerplug-in-wmp.xpt $RPM_BUILD_ROOT%{_mozillacomponentpath}
+install -m 755 mplayerplug-in-wmp.so %{buildroot}%{_mozillapluginpath}
+install -m 644 mplayerplug-in-wmp.xpt %{buildroot}%{_mozillacomponentpath}
 
-install -m 755 mplayerplug-in-qt.so $RPM_BUILD_ROOT%{_mozillapluginpath}
-install -m 755 mplayerplug-in-qt.xpt $RPM_BUILD_ROOT%{_mozillacomponentpath}
+install -m 755 mplayerplug-in-qt.so %{buildroot}%{_mozillapluginpath}
+install -m 755 mplayerplug-in-qt.xpt %{buildroot}%{_mozillacomponentpath}
 
-install -m 755 mplayerplug-in-rm.so $RPM_BUILD_ROOT%{_mozillapluginpath}
-install -m 755 mplayerplug-in-rm.xpt $RPM_BUILD_ROOT%{_mozillacomponentpath}
+install -m 755 mplayerplug-in-rm.so %{buildroot}%{_mozillapluginpath}
+install -m 755 mplayerplug-in-rm.xpt %{buildroot}%{_mozillacomponentpath}
 
-install -m 755 mplayerplug-in-gmp.so $RPM_BUILD_ROOT%{_mozillapluginpath}
-install -m 755 mplayerplug-in-gmp.xpt $RPM_BUILD_ROOT%{_mozillacomponentpath}
+install -m 755 mplayerplug-in-gmp.so %{buildroot}%{_mozillapluginpath}
+install -m 755 mplayerplug-in-gmp.xpt %{buildroot}%{_mozillacomponentpath}
 
-install -m 755 mplayerplug-in-dvx.so $RPM_BUILD_ROOT%{_mozillapluginpath}
-install -m 755 mplayerplug-in-dvx.xpt $RPM_BUILD_ROOT%{_mozillacomponentpath}
+install -m 755 mplayerplug-in-dvx.so %{buildroot}%{_mozillapluginpath}
+install -m 755 mplayerplug-in-dvx.xpt %{buildroot}%{_mozillacomponentpath}
 
-install -m 644 mplayerplug-in.types $RPM_BUILD_ROOT%{_sysconfdir}
+install -m 644 mplayerplug-in.types %{buildroot}%{_sysconfdir}
 
 # install translations
-%makeinstall_std -C po DESTDIR=$RPM_BUILD_ROOT
+%makeinstall_std -C po DESTDIR=%{buildroot}
 %find_lang mplayerplug-in
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -f mplayerplug-in.lang
 %defattr(-,root,root,-)
@@ -230,5 +229,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_mozillacomponentpath}/mplayerplug-in-rm.xpt
 %{_mozillacomponentpath}/mplayerplug-in-gmp.xpt
 %{_mozillacomponentpath}/mplayerplug-in-dvx.xpt
-
-
