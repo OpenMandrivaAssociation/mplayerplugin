@@ -41,7 +41,7 @@ autoconf-2.5x
 	--enable-qt \
 	--enable-gmp \
 	--enable-rm \
-	--enable-dvx \
+	--enable-dvx
 %make
 
 %install
