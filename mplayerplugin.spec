@@ -32,8 +32,7 @@ playing embedded movies on web pages.
 %build
 %if %{mdkversion} > 1020
 perl -pi -e 's/mozilla-/mozilla-firefox-/g' configure.in
-aclocal
-autoconf-2.5x
+autoreconf
 %endif
 
 %configure2_5x \
