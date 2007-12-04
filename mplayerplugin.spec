@@ -10,7 +10,7 @@ Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
-BuildRequires:	XFree86-devel
+BuildRequires:	X11-devel
 %if %{mdkversion} > 1020
 BuildRequires:	mozilla-firefox-devel
 %else
