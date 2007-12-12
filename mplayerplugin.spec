@@ -3,9 +3,9 @@
 
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin
-Version:	3.45
+Version:	3.50
 Release:	%mkrel 1
-License:	GPL
+License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
