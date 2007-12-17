@@ -17,7 +17,6 @@ BuildRequires:	mozilla-firefox-devel
 BuildRequires:	mozilla-devel
 %endif
 BuildRequires:	gtk+2-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires:	mplayer >= 1.0
 Conflicts:	mozplugger < 1.5.2-2mdk
 
