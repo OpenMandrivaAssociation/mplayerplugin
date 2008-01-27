@@ -1,15 +1,25 @@
 %define _mozillapluginpath	%{_libdir}/mozilla/plugins
 %define _mozillacomponentpath	%{_libdir}/mozilla/plugins
 
+%define build_3264bit     0
+%{?_with_3264bit: %{expand: %%global build_3264bit 1}}
+%{?_without_3264bit: %{expand: %%global build_3264bit 0}}
+%if %{build_3264bit}
+%define	pkgext	32
+%else
+%define pkgext	%{nil}
+%endif
+
 Summary:	A browser plugin to allow playing embedded movies on web pages
-Name:		mplayerplugin
+Name:		mplayerplugin%{pkgext}
 Version:	3.50
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
+Patch1:		mplayerplugin-3.50-32_64bit.patch
 BuildRequires:	X11-devel
 %if %{mdkversion} > 1020
 BuildRequires:	mozilla-firefox-devel
@@ -18,7 +28,7 @@ BuildRequires:	mozilla-devel
 %endif
 BuildRequires:	gtk+2-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Requires:	mplayer >= 1.0
+Requires:	mplayer32 >= 1.0
 Conflicts:	mozplugger < 1.5.2-2mdk
 
 %description
@@ -28,6 +38,9 @@ playing embedded movies on web pages.
 %prep
 %setup -qn mplayerplug-in
 %patch0 -p1 -b .mime
+%if %{build_3264bit}
+%patch1 -p1 -b .32_64
+%endif
 
 %build
 %if %{mdkversion} > 1020
@@ -50,7 +63,7 @@ mkdir -p %{buildroot}%{_bindir} \
 	%{buildroot}%{_mozillapluginpath} \
 	%{buildroot}%{_mozillacomponentpath}
 
-cat > %{buildroot}%{_sysconfdir}/mplayerplug-in.conf <<EOF
+cat > %{buildroot}%{_sysconfdir}/mplayerplug-in%{pkgext}.conf <<EOF
 # Enable debugging if set to 1 (default=0)
 debug=1
 
@@ -73,7 +86,7 @@ ao=esd,alsa,oss,arts,null
 rtsp-use-tcp=1
 
 # OSD Level (default=0)
-osdlevel=3
+osdlevel=0
 
 # When set to 1 uses the aspect of movie no matter what (default=1)
 #prefer-aspect=0
@@ -175,9 +188,9 @@ nopauseonhide=1
 #slowlogo=0
 
 # Option showing the time in the progress bar, 0 = no time shown (default=1)
-showtime=0
+showtime=1
 
-# Option shown the media progress bar, 0 = not shown (default=1)
+# Option showing the media progress bar, 0 = not shown (default=1)
 #showtracker=0
 
 # When set to 1, no status messages are shown (default=0)
@@ -207,6 +220,10 @@ install -m 644 mplayerplug-in.types %{buildroot}%{_sysconfdir}
 # install translations
 %makeinstall_std -C po DESTDIR=%{buildroot}
 %find_lang mplayerplug-in
+%if %{build_3264bit}
+mv -f %{buildroot}%{_sysconfdir}/mplayerplug-in.types \
+	%{buildroot}%{_sysconfdir}/mplayerplug-in%{pkgext}.types
+%endif
 
 %clean
 rm -rf %{buildroot}
@@ -214,8 +231,8 @@ rm -rf %{buildroot}
 %files -f mplayerplug-in.lang
 %defattr(-,root,root,-)
 %doc ChangeLog INSTALL README
-%attr(644,root,root) %config(noreplace) %{_sysconfdir}/mplayerplug-in.conf
-%attr(644,root,root) %config(noreplace) %{_sysconfdir}/mplayerplug-in.types
+%attr(644,root,root) %config(noreplace) %{_sysconfdir}/mplayerplug-in%{pkgext}.conf
+%attr(644,root,root) %config(noreplace) %{_sysconfdir}/mplayerplug-in%{pkgext}.types
 %{_mozillapluginpath}/mplayerplug-in.so
 %{_mozillapluginpath}/mplayerplug-in-wmp.so
 %{_mozillapluginpath}/mplayerplug-in-qt.so
