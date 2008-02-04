@@ -13,7 +13,7 @@
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin%{pkgext}
 Version:	3.50
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
@@ -71,7 +71,11 @@ debug=1
 vo=x11
 
 # Audio output
+%if %{mdkversion} >= 200810
+ao=pulse,esd,alsa,oss,arts,null
+%else
 ao=esd,alsa,oss,arts,null
+%endif
 
 # Passes display to show output to, useful for multiple monitor setups
 #display=[display name]
@@ -86,7 +90,7 @@ ao=esd,alsa,oss,arts,null
 rtsp-use-tcp=1
 
 # OSD Level (default=0)
-osdlevel=0
+osdlevel=1
 
 # When set to 1 uses the aspect of movie no matter what (default=1)
 #prefer-aspect=0
