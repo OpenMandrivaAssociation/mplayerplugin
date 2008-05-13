@@ -1,5 +1,6 @@
 %define _mozillapluginpath	%{_libdir}/mozilla/plugins
 %define _mozillacomponentpath	%{_libdir}/mozilla/plugins
+%define	snapshot		20080513
 
 %define build_3264bit     0
 %{?_with_3264bit: %{expand: %%global build_3264bit 1}}
@@ -13,13 +14,14 @@
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin%{pkgext}
 Version:	3.50
-Release:	%mkrel 3
+Release:	4.%{snapshot}.%mkrel 2
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
-Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
+Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{snapshot}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
 Patch1:		mplayerplugin-3.50-32_64bit.patch
+Patch2:		mplayerplugin-quicktime-745.patch
 BuildRequires:	X11-devel
 %if %{mdkversion} > 1020
 BuildRequires:	mozilla-firefox-devel
@@ -41,6 +43,7 @@ playing embedded movies on web pages.
 %if %{build_3264bit}
 %patch1 -p1 -b .32_64
 %endif
+%patch2 -p1 -b .qt745
 
 %build
 %if %{mdkversion} > 1020
