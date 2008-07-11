@@ -1,6 +1,6 @@
 %define _mozillapluginpath	%{_libdir}/mozilla/plugins
 %define _mozillacomponentpath	%{_libdir}/mozilla/plugins
-%define	snapshot		20080513
+%define	snapshot		%{nil}
 
 %define build_3264bit     0
 %{?_with_3264bit: %{expand: %%global build_3264bit 1}}
@@ -13,15 +13,14 @@
 
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin%{pkgext}
-Version:	3.50
-Release:	4.%{snapshot}.%mkrel 2
+Version:	3.55
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
-Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{snapshot}.tar.bz2
+Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
 Patch1:		mplayerplugin-3.50-32_64bit.patch
-Patch2:		mplayerplugin-quicktime-745.patch
 BuildRequires:	X11-devel
 %if %{mdkversion} > 1020
 BuildRequires:	mozilla-firefox-devel
@@ -38,12 +37,11 @@ Mplayerplug-in is a Netscape/Mozilla browser plugin to allow
 playing embedded movies on web pages.
 
 %prep
-%setup -qn mplayerplug-in
+%setup -qn mplayerplug-in-%{version}
 %patch0 -p1 -b .mime
 %if %{build_3264bit}
 %patch1 -p1 -b .32_64
 %endif
-%patch2 -p1 -b .qt745
 
 %build
 %if %{mdkversion} > 1020
@@ -121,7 +119,7 @@ cachesize=2048
 #cache-percent=10
 
 # Read mime types to handle from \$HOME/{.mplayer,.mozilla}, /etc/mplayerplug-in.types
-use-mimetypes=0
+use-mimetypes=1
 
 # Set QT Speeed, use "low" for dialup, "med" (default) for DSL, "high" for more
 #qt-speed=low
@@ -236,7 +234,7 @@ mv -f %{buildroot}%{_sysconfdir}/mplayerplug-in.types \
 rm -rf %{buildroot}
 
 %files -f mplayerplug-in.lang
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %doc ChangeLog INSTALL README
 %attr(644,root,root) %config(noreplace) %{_sysconfdir}/mplayerplug-in%{pkgext}.conf
 %attr(644,root,root) %config(noreplace) %{_sysconfdir}/mplayerplug-in%{pkgext}.types
