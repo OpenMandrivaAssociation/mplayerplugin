@@ -66,10 +66,10 @@ mkdir -p %{buildroot}%{_bindir} \
 
 cat > %{buildroot}%{_sysconfdir}/mplayerplug-in%{pkgext}.conf <<EOF
 # Enable debugging if set to 1 (default=0)
-debug=1
+debug=0
 
 # Video output
-vo=x11
+vo=xv,x11
 
 # Audio output
 %if %{mdkversion} >= 200810
