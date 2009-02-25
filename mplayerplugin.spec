@@ -14,7 +14,7 @@
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin%{pkgext}
 Version:	3.55
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
@@ -24,6 +24,7 @@ Patch1:		mplayerplugin-3.50-32_64bit.patch
 Patch2:		mplayerplug-in-3.55-mp4mime.patch
 Patch3:		mplayerplug-in-3.55-mincache.patch
 Patch4:		mplayerplug-in-3.55-threads.patch
+Patch5:		mplayerplug-in-3.55-types-nomidi.patch
 BuildRequires:	X11-devel
 %if %{mdkversion} >= 200900
 BuildRequires:	xulrunner-devel
@@ -52,6 +53,7 @@ playing embedded movies on web pages.
 %patch2 -p1 -b .mp4
 %patch3 -p1 -b .mincache
 %patch4 -p1 -b .threads
+%patch5 -p1 -b .nomidi
 
 %build
 %if %{mdkversion} > 1020
