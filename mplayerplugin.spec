@@ -14,7 +14,7 @@
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin%{pkgext}
 Version:	3.55
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
@@ -143,11 +143,11 @@ use-mimetypes=1
 # Enable/Disable Ogg mime-types (default=1)
 #enable-ogg=0
 
-# Enable/Disable Smil (default=1)
+# Enable/Disable Smil (Synchronized Multimedia Integration Language, default=1)
 #enable-smil=0
 
-# Enable/Disable Helix compatibility (not allowing nphelix.so to handle it's
-# own mime types (default=1)
+# Enable/Disable Helix compatibility (avoid nphelix.so to handle its
+# own mime types, default=1)
 enable-helix=0
 
 # Enable/Disable Windows Media Support (default=1)
@@ -159,8 +159,15 @@ enable-helix=0
 # Enable/Disable RealMedia Support (default=1)
 #enable-rm=0
 
-# Enable PLS Support (default=1)
+# Enable PLS Support (default=1, mime type: audio/x-scpls, Shoutcast Playlist)
 #enable-pls=0
+
+# Enable/Disable midi Support (default=1)
+enable-midi=0
+
+# Enable/Disable gmp Support (default=1,
+# mime type: application/x-google-vlc-plugin, Google Video)
+#enable-gmp=0
 
 # For Live.com video behind a proxy
 #rtsp-use-tcp=0
