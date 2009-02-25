@@ -21,10 +21,17 @@ URL:		http://mplayerplug-in.sourceforge.net
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
 Patch1:		mplayerplugin-3.50-32_64bit.patch
+Patch2:		mplayerplug-in-3.55-mp4mime.patch
+Patch3:		mplayerplug-in-3.55-mincache.patch
+Patch4:		mplayerplug-in-3.55-threads.patch
 BuildRequires:	X11-devel
-%if %{mdkversion} > 1020
+%if %{mdkversion} >= 200900
+BuildRequires:	xulrunner-devel
+%endif
+%if %{mdkversion} > 1020 && %{mdkversion} < 200900
 BuildRequires:	mozilla-firefox-devel
-%else
+%endif
+%if %{mdkversion} < 1020
 BuildRequires:	mozilla-devel
 %endif
 BuildRequires:	gtk+2-devel
@@ -42,6 +49,9 @@ playing embedded movies on web pages.
 %if %{build_3264bit}
 %patch1 -p1 -b .32_64
 %endif
+%patch2 -p1 -b .mp4
+%patch3 -p1 -b .mincache
+%patch4 -p1 -b .threads
 
 %build
 %if %{mdkversion} > 1020
