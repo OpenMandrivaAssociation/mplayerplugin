@@ -1,5 +1,6 @@
 %define _mozillapluginpath	%{_libdir}/mozilla/plugins
 %define _mozillacomponentpath	%{_libdir}/mozilla/plugins
+%define xulrunner_version %(rpm -q --whatprovides libxulrunner --queryformat %{VERSION})
 %define	snapshot		%{nil}
 
 %define build_3264bit     0
@@ -14,17 +15,15 @@
 Summary:	A browser plugin to allow playing embedded movies on web pages
 Name:		mplayerplugin%{pkgext}
 Version:	3.55
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPLv2+
 Group:		Networking/WWW
 URL:		http://mplayerplug-in.sourceforge.net
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
 Patch1:		mplayerplugin-3.50-32_64bit.patch
-Patch2:		mplayerplug-in-3.55-mp4mime.patch
-Patch3:		mplayerplug-in-3.55-mincache.patch
-Patch4:		mplayerplug-in-3.55-threads.patch
 Patch5:		mplayerplug-in-3.55-types-nomidi.patch
+Patch6:		mplayerplug-in-3.55-cvs20090908.patch
 BuildRequires:	X11-devel
 %if %{mdkversion} >= 200900
 BuildRequires:	xulrunner-devel
@@ -36,9 +35,9 @@ BuildRequires:	mozilla-firefox-devel
 BuildRequires:	mozilla-devel
 %endif
 BuildRequires:	gtk+2-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires:	mplayer%{pkgext} >= 1.0
 Conflicts:	mozplugger < 1.5.2-2mdk
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Mplayerplug-in is a Netscape/Mozilla browser plugin to allow
@@ -50,15 +49,15 @@ playing embedded movies on web pages.
 %if %{build_3264bit}
 %patch1 -p1 -b .32_64
 %endif
-%patch2 -p1 -b .mp4
-%patch3 -p1 -b .mincache
-%patch4 -p1 -b .threads
 %patch5 -p1 -b .nomidi
+%patch6 -p1 -b .cvs
 
 %build
-%if %{mdkversion} > 1020
-perl -pi -e 's/mozilla-/mozilla-firefox-/g' configure.in
-autoreconf
+%if %{mdkversion} > 200900
+autoreconf -fiv
+#(tpg) hack to include prtime.h and prtypes.h from nsrp4-devel
+export CFLAGS="%{optflags} -I/usr/include/nspr4"
+export CXXFLAGS=$CFLAGS
 %endif
 
 %configure2_5x \
@@ -66,7 +65,13 @@ autoreconf
 	--enable-qt \
 	--enable-gmp \
 	--enable-rm \
-	--enable-dvx
+	--enable-dvx \
+	--disable-rpath \
+	--disable-x \
+	--disable-gtk1 \
+	--enable-gtk2 \
+	--with-gecko-sdk="%{_libdir}/xulrunner-devel-%{xulrunner_version}"
+
 %make
 
 %install
