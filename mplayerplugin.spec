@@ -62,7 +62,7 @@ export CXXFLAGS=$CFLAGS
 
 %configure2_5x \
 	--enable-wmp \
-	--enable-qt \
+	--disable-qt \
 	--enable-gmp \
 	--enable-rm \
 	--enable-dvx \
