@@ -1,0 +1,24 @@
+--- mplayerplug-in-3.55/mplayerplug-in.types.oldtype	2009-02-25 14:49:35.990921000 +0100
++++ mplayerplug-in-3.55/mplayerplug-in.types	2009-02-25 15:22:11.954300748 +0100
+@@ -13,7 +13,10 @@
+ audio/x-mpeg3:mp3:MPEG audio;
+ audio/mp3:mp3:MPEG audio;
+ audio/x-mpegurl:m3u:MPEG url;
++audio/mp4:mp4:MPEG 4 audio;
++audio/x-mp4:mp4:MPEG 4 audio;
+ video/mp4:mp4:MPEG 4 Video;
++video/3gpp:mp4,3gp:MPEG 4 Video;
+ application/x-ogg:ogg:Ogg Vorbis Media;
+ audio/flac:ogg:FLAC Lossless Audio;
+ audio/x-flac:ogg:FLAC Lossless Audio;
+@@ -24,9 +27,9 @@
+ video/x-fli:fli,flc:FLI animation;
+ video/vnd.vivo:viv,vivo:VivoActive;
+ application/x-nsv-vp3-mp3:nsv:Nullsoft Streaming Video;
++audio/x-mod:mod:Soundtracker;
+ audio/basic:au,snd:Basic audio;
+ audio/x-basic:au,snd:Basic audio;
+ audio/x-scpls:pls:Shoutcast Playlist;
+ video/divx:divx:DivX Media Format;
+ video/vnd.divx:divx:DivX Media Format;
+-audio/midi:mid,midi,kar:MIDI Audio;

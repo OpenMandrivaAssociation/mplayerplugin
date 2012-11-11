@@ -1,0 +1,243 @@
+--- mplayerplug-in/Source/plugin.cpp.32	2007-12-02 00:23:04.000000000 +0100
++++ mplayerplug-in/Source/plugin.cpp	2008-01-27 11:35:43.000000000 +0100
+@@ -344,8 +344,8 @@
+ #ifdef X_ENABLED
+     setlocale(LC_ALL, "");
+ #endif
+-    textdomain("mplayerplug-in");
+-    bind_textdomain_codeset("mplayerplug-in", "utf-8");
++    textdomain("mplayerplug-in32");
++    bind_textdomain_codeset("mplayerplug-in32", "utf-8");
+ #endif
+     time(&lastOutput);
+ }
+@@ -464,7 +464,7 @@
+     }
+ 
+     if (DEBUG)
+-	printf("mplayer dead\n");
++	printf("mplayer32 dead\n");
+ 
+ #ifdef X_ENABLED
+     FreeUI((Display *) display, this);
+@@ -813,7 +813,7 @@
+ 						  this);
+ #endif
+ 	    gtk_window_set_title(GTK_WINDOW(gtkwidget),
+-				 "mplayerplug-in player");
++				 "mplayerplug-in32 player");
+ 
+ 	}
+ 
+@@ -1800,7 +1800,7 @@
+ 			NPN_MemFree(filename);
+ 		} else {
+ 		    snprintf(n->fname, 1024, "%s",
+-			     tempnam("/tmp", "mplayerplug-inXXXXXX"));
++			     tempnam("/tmp", "mplayerplug-in32XXXXXX"));
+ 		    if (strstr(mimetype, "midi") != NULL) {
+ 			strlcat(n->fname, ".mid", 1024);
+ 		    }
+@@ -1867,7 +1867,7 @@
+ 		    NPN_MemFree(filename);
+ 	    } else {
+ 		snprintf(n->fname, 1024, "%s",
+-			 tempnam("/tmp", "mplayerplug-inXXXXXX"));
++			 tempnam("/tmp", "mplayerplug-in32XXXXXX"));
+ 	    }
+ 	    addToEnd(td->list, n);
+ 	    if (n->totalbytes != (int) stream->end)
+@@ -2945,7 +2945,7 @@
+ 		screen = gtk_window_get_screen(GTK_WINDOW(gtkwidget));
+ 		gtk_window_set_screen(GTK_WINDOW(fs_window), screen);
+ 		gtk_window_set_title(GTK_WINDOW(fs_window),
+-				     "mplayerplug-in fullscreen");
++				     "mplayerplug-in32 fullscreen");
+ 		gdk_screen_get_monitor_geometry(screen,
+ 						gdk_screen_get_monitor_at_window
+ 						(screen,
+@@ -2973,7 +2973,7 @@
+ 	    } else {
+ 		screen = gtk_window_get_screen(GTK_WINDOW(gtkwidget));
+ 		gtk_window_set_title(GTK_WINDOW(gtkwidget),
+-				     "mplayerplug-in fullscreen");
++				     "mplayerplug-in32 fullscreen");
+ 		gdk_screen_get_monitor_geometry(screen,
+ 						gdk_screen_get_monitor_at_window
+ 						(screen,
+--- mplayerplug-in/Source/plugin-setup.cpp.32	2007-12-02 00:23:04.000000000 +0100
++++ mplayerplug-in/Source/plugin-setup.cpp	2008-01-27 11:31:02.000000000 +0100
+@@ -64,13 +64,13 @@
+ 
+     // load config file
+ 
+-    snprintf(config_name[0], 1000, "/etc/mplayerplug-in.conf");
++    snprintf(config_name[0], 1000, "/etc/mplayerplug-in32.conf");
+ 
+     snprintf(config_name[1], 1000, "%s", getenv("HOME"));
+-    strlcat(config_name[1], "/.mozilla/mplayerplug-in.conf", 1000);
++    strlcat(config_name[1], "/.mozilla/mplayerplug-in32.conf", 1000);
+ 
+     snprintf(config_name[2], 1000, "%s", getenv("HOME"));
+-    strlcat(config_name[2], "/.mplayer/mplayerplug-in.conf", 1000);
++    strlcat(config_name[2], "/.mplayer/mplayerplug-in32.conf", 1000);
+ 
+     config = NULL;
+ 
+@@ -249,18 +249,18 @@
+ 
+ 	if (customtypes == NULL) {
+ 	    snprintf(buffer, 1000, "%s", getenv("HOME"));
+-	    strlcat(buffer, "/.mplayer/mplayerplug-in.types", 1000);
++	    strlcat(buffer, "/.mplayer/mplayerplug-in32.types", 1000);
+ 	    customtypes = fopen(buffer, "r");
+ 	}
+ 
+ 	if (customtypes == NULL) {
+ 	    snprintf(buffer, 1000, "%s", getenv("HOME"));
+-	    strlcat(buffer, "/.mozilla/mplayerplug-in.types", 1000);
++	    strlcat(buffer, "/.mozilla/mplayerplug-in32.types", 1000);
+ 	    config = fopen(buffer, "r");
+ 	}
+ 
+ 	if (customtypes == NULL) {
+-	    customtypes = fopen("/etc/mplayerplug-in.types", "r");
++	    customtypes = fopen("/etc/mplayerplug-in32.types", "r");
+ 	}
+ 
+ 	if (customtypes != NULL) {
+@@ -454,7 +454,7 @@
+ 
+     if (variable == NPPVpluginNameString) {
+ #ifdef STD
+-	*((const char **) value) = "mplayerplug-in " PACKAGE_VERSION;
++	*((const char **) value) = "mplayerplug-in32 " PACKAGE_VERSION;
+ #endif
+ #ifdef WMP
+ 	*((const char **) value) = "Windows Media Player Plugin";
+@@ -480,19 +480,19 @@
+     if (variable == NPPVpluginDescriptionString) {
+ #ifdef GTK2_ENABLED
+ 	*((const char **) value) =
+-	    "<a href=\"http://mplayerplug-in.sourceforge.net/\">mplayerplug-in</a> "
++	    "<a href=\"http://mplayerplug-in.sourceforge.net/\">mplayerplug-in32</a> "
+ 	    PACKAGE_VERSION
+ 	    "<br><br>Video Player Plug-in for QuickTime, RealPlayer and Windows Media Player streams using <a href=\"http://mplayerhq.hu\">MPlayer</a> <br>JavaScript Enabled and Using GTK2 Widgets<br>";
+ #endif
+ #ifdef GTK1_ENABLED
+ 	*((const char **) value) =
+-	    "<a href=\"http://mplayerplug-in.sourceforge.net/\">mplayerplug-in</a> "
++	    "<a href=\"http://mplayerplug-in.sourceforge.net/\">mplayerplug-in32</a> "
+ 	    PACKAGE_VERSION
+ 	    "<br><br>Video Player Plug-in for QuickTime, RealPlayer and Windows Media Player streams using <a href=\"http://mplayerhq.hu\">MPlayer</a> <br>JavaScript Enabled and Using GTK1 Widgets<br>";
+ #endif
+ #ifdef X_ENABLED
+ 	*((const char **) value) =
+-	    "<a href=\"http://mplayerplug-in.sourceforge.net/\">mplayerplug-in</a> "
++	    "<a href=\"http://mplayerplug-in.sourceforge.net/\">mplayerplug-in32</a> "
+ 	    PACKAGE_VERSION
+ 	    "<br><br>Video Player Plug-in for QuickTime, RealPlayer and Windows Media Player streams using <a href=\"http://mplayerhq.hu\">MPlayer</a> <br>JavaScript Enabled and Using X Widgets<br>";
+ #endif
+@@ -1280,13 +1280,13 @@
+ 
+     // load config file
+ 
+-    snprintf(config_name[0], 1000, "/etc/mplayerplug-in.conf");
++    snprintf(config_name[0], 1000, "/etc/mplayerplug-in32.conf");
+ 
+     snprintf(config_name[1], 1000, "%s", getenv("HOME"));
+-    strlcat(config_name[1], "/.mozilla/mplayerplug-in.conf", 1000);
++    strlcat(config_name[1], "/.mozilla/mplayerplug-in32.conf", 1000);
+ 
+     snprintf(config_name[2], 1000, "%s", getenv("HOME"));
+-    strlcat(config_name[2], "/.mplayer/mplayerplug-in.conf", 1000);
++    strlcat(config_name[2], "/.mplayer/mplayerplug-in32.conf", 1000);
+ 
+     config = NULL;
+ 
+--- mplayerplug-in/Source/plugin-ui.cpp.32	2007-12-02 00:23:04.000000000 +0100
++++ mplayerplug-in/Source/plugin-ui.cpp	2008-01-27 11:33:48.000000000 +0100
+@@ -277,7 +277,7 @@
+ #ifdef X_ENABLED
+     GC black_gc, white_gc;
+     XGCValues values;
+-    const char *id = "mplayerplug-in v" PACKAGE_VERSION;
++    const char *id = "mplayerplug-in32 v" PACKAGE_VERSION;
+     unsigned int id_width;
+     int top, font_height, loops;
+     int term, chop;
+@@ -2558,10 +2558,10 @@
+     // write the setting to the conf file now
+ 
+     snprintf(config_name, 1000, "%s", getenv("HOME"));
+-    strlcat(config_name, "/.mplayer/mplayerplug-in.conf", 1000);
++    strlcat(config_name, "/.mplayer/mplayerplug-in32.conf", 1000);
+ 
+     snprintf(tmp_name, 1000, "%s", getenv("HOME"));
+-    strlcat(tmp_name, "/.mplayer/mplayerplug-in.conf.tmp", 1000);
++    strlcat(tmp_name, "/.mplayer/mplayerplug-in32.conf.tmp", 1000);
+ 
+     if (DEBUG) {
+ 	printf("config %s\n", config_name);
+@@ -2732,7 +2732,7 @@
+     gtk_container_add(GTK_CONTAINER(conf_vbox), conf_hbutton_box);
+     gtk_container_add(GTK_CONTAINER(instance->conf_window), conf_vbox);
+     gtk_window_set_title(GTK_WINDOW(instance->conf_window),
+-			 _("mplayerplug-in configuration"));
++			 _("mplayerplug-in32 configuration"));
+     gtk_container_set_border_width(GTK_CONTAINER
+ 				   (instance->conf_window), 5);
+     g_signal_connect(GTK_OBJECT(instance->conf_window), "delete_event",
+@@ -3236,12 +3236,12 @@
+     if (instance->pb_src == NULL) {
+ 	// setup tmp directory
+ 	dirname =
+-	    g_strdup_printf("%s", tempnam("/tmp", "mplayerplug-inXXXXXX"));
++	    g_strdup_printf("%s", tempnam("/tmp", "mplayerplug-in32XXXXXX"));
+ 	filename = g_strdup_printf("%s/00000001.jpg", dirname);
+ 
+ 	// run mplayer and try to get the first frame and convert it to a jpeg
+ 	command =
+-	    g_strdup_printf("mplayer -vo jpeg:outdir=%s -frames 1 %s",
++	    g_strdup_printf("mplayer32 -vo jpeg:outdir=%s -frames 1 %s",
+ 			    dirname, url);
+ 	if (!g_spawn_command_line_sync
+ 	    (command, NULL, NULL, &exit_status, &error))
+--- mplayerplug-in/Source/plugin-threads.cpp.32	2008-01-27 11:28:05.000000000 +0100
++++ mplayerplug-in/Source/plugin-threads.cpp	2008-01-27 11:29:17.000000000 +0100
+@@ -343,7 +343,7 @@
+ 	    && (instance->td->list->bytes > 0)) {
+ 	    if (strlen(instance->td->list->fname) == 0) {
+ 		snprintf(instance->td->list->fname, 1024, "%s",
+-			 tempnam("/tmp", "mplayerplug-inXXXXXX"));
++			 tempnam("/tmp", "mplayerplug-in32XXXXXX"));
+ 	    }
+ 	} else {
+ 	    // fix up the URL
+@@ -364,7 +364,7 @@
+     }
+ 
+     i = 0;
+-    snprintf(buffer, 1024, "mplayer");
++    snprintf(buffer, 1024, "mplayer32");
+     instance->td->argv[i++] = strdup(buffer);
+     if (instance->novop == 1) {
+ 	snprintf(buffer, 1024, "-vop");
+@@ -665,7 +665,7 @@
+     static FILE *error = NULL;
+     char errortmp[64];
+     if (!error)
+-	error = fopen("/tmp/mplayerplugin-smil.log", "a");
++	error = fopen("/tmp/mplayerplugin32-smil.log", "a");
+ #endif
+ 
+     /* just to be sure */
+@@ -1273,7 +1273,7 @@
+ 
+ 
+ 	pthread_testcancel();
+-	if (strstr(buffer, "Example: mplayer -playlist ") != NULL) {
++	if (strstr(buffer, "Example: mplayer32 -playlist ") != NULL) {
+ 	    if (*maybeplaylist == 0) {
+ 		result->tryagain = TRYAGAIN_TRUE;
+ 		*maybeplaylist = 1;

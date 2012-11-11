@@ -1,0 +1,9 @@
+--- mplayerplug-in/mplayerplug-in.types.mime	2005-08-03 15:38:00.000000000 +0200
++++ mplayerplug-in/mplayerplug-in.types	2005-08-03 15:39:15.000000000 +0200
+@@ -1,3 +1,6 @@
++# Mime-Types handled by mplayerplug-in.so when
++# use-mimetypes=1 in /etc/mplayerplug-in.conf
++#
+ video/mpeg:mpg,mpeg:MPEG;
+ audio/mpeg:mpg,mpeg:MPEG;
+ video/x-mpeg:mpg,mpeg:MPEG;
