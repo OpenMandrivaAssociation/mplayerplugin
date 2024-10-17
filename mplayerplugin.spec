@@ -18,7 +18,7 @@ Version:	3.55
 Release:	%mkrel 9
 License:	GPLv2+
 Group:		Networking/WWW
-URL:		http://mplayerplug-in.sourceforge.net
+URL:		https://mplayerplug-in.sourceforge.net
 Source0:	http://heanet.dl.sourceforge.net/sourceforge/mplayerplug-in/mplayerplug-in-%{version}.tar.bz2
 Patch0:		mplayerplugin-3.01-mime.patch
 Patch1:		mplayerplugin-3.50-32_64bit.patch
