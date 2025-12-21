@@ -24,6 +24,11 @@ Patch0:		mplayerplugin-3.01-mime.patch
 Patch1:		mplayerplugin-3.50-32_64bit.patch
 Patch5:		mplayerplug-in-3.55-types-nomidi.patch
 Patch6:		mplayerplug-in-3.55-cvs20090908.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	X11-devel
 %if %{mdkversion} >= 200900
 BuildRequires:	xulrunner-devel
